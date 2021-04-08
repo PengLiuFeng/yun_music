@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plf.yunmusicserver.dao.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.plf.yunmusicserver.entity.Role">
+    <id column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="role_no" jdbcType="INTEGER" property="roleNo" />
+    <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="role_create_date" jdbcType="TIMESTAMP" property="roleCreateDate" />
+    <result column="role_create_user" jdbcType="VARCHAR" property="roleCreateUser" />
+    <result column="role_version" jdbcType="INTEGER" property="roleVersion" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.plf.yunmusicserver.entity.Role">
+    <result column="role_describe" jdbcType="LONGVARCHAR" property="roleDescribe" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    role_id, role_no, role_code, role_name, role_create_date, role_create_user, role_version
+  </sql>
+  <sql id="Blob_Column_List">
+    role_describe
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from role
+    where role_id = #{roleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from role
+    where role_id = #{roleId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.plf.yunmusicserver.entity.Role">
+    insert into role (role_id, role_no, role_code, 
+      role_name, role_create_date, role_create_user, 
+      role_version, role_describe)
+    values (#{roleId,jdbcType=VARCHAR}, #{roleNo,jdbcType=INTEGER}, #{roleCode,jdbcType=VARCHAR}, 
+      #{roleName,jdbcType=VARCHAR}, #{roleCreateDate,jdbcType=TIMESTAMP}, #{roleCreateUser,jdbcType=VARCHAR}, 
+      #{roleVersion,jdbcType=INTEGER}, #{roleDescribe,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.plf.yunmusicserver.entity.Role">
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="roleNo != null">
+        role_no,
+      </if>
+      <if test="roleCode != null">
+        role_code,
+      </if>
+      <if test="roleName != null">
+        role_name,
+      </if>
+      <if test="roleCreateDate != null">
+        role_create_date,
+      </if>
+      <if test="roleCreateUser != null">
+        role_create_user,
+      </if>
+      <if test="roleVersion != null">
+        role_version,
+      </if>
+      <if test="roleDescribe != null">
+        role_describe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleNo != null">
+        #{roleNo,jdbcType=INTEGER},
+      </if>
+      <if test="roleCode != null">
+        #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCreateDate != null">
+        #{roleCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roleCreateUser != null">
+        #{roleCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="roleVersion != null">
+        #{roleVersion,jdbcType=INTEGER},
+      </if>
+      <if test="roleDescribe != null">
+        #{roleDescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.plf.yunmusicserver.entity.Role">
+    update role
+    <set>
+      <if test="roleNo != null">
+        role_no = #{roleNo,jdbcType=INTEGER},
+      </if>
+      <if test="roleCode != null">
+        role_code = #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null">
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCreateDate != null">
+        role_create_date = #{roleCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roleCreateUser != null">
+        role_create_user = #{roleCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="roleVersion != null">
+        role_version = #{roleVersion,jdbcType=INTEGER},
+      </if>
+      <if test="roleDescribe != null">
+        role_describe = #{roleDescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where role_id = #{roleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.plf.yunmusicserver.entity.Role">
+    update role
+    set role_no = #{roleNo,jdbcType=INTEGER},
+      role_code = #{roleCode,jdbcType=VARCHAR},
+      role_name = #{roleName,jdbcType=VARCHAR},
+      role_create_date = #{roleCreateDate,jdbcType=TIMESTAMP},
+      role_create_user = #{roleCreateUser,jdbcType=VARCHAR},
+      role_version = #{roleVersion,jdbcType=INTEGER},
+      role_describe = #{roleDescribe,jdbcType=LONGVARCHAR}
+    where role_id = #{roleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.plf.yunmusicserver.entity.Role">
+    update role
+    set role_no = #{roleNo,jdbcType=INTEGER},
+      role_code = #{roleCode,jdbcType=VARCHAR},
+      role_name = #{roleName,jdbcType=VARCHAR},
+      role_create_date = #{roleCreateDate,jdbcType=TIMESTAMP},
+      role_create_user = #{roleCreateUser,jdbcType=VARCHAR},
+      role_version = #{roleVersion,jdbcType=INTEGER}
+    where role_id = #{roleId,jdbcType=VARCHAR}
+  </update>
+</mapper>
