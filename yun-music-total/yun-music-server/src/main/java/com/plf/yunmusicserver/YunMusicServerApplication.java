@@ -1,4 +1,4 @@
-package com.plf.yunmusic;
+package com.plf.yunmusicserver;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -7,12 +7,12 @@ import org.springframework.core.env.ConfigurableEnvironment;
 
 import java.time.LocalDateTime;
 
-@SpringBootApplication
 @Slf4j
-public class YunMusicApplication {
+@SpringBootApplication
+public class YunMusicServerApplication {
 
     public static void main(String[] args) {
-        ConfigurableEnvironment environment = SpringApplication.run(YunMusicApplication.class, args).getEnvironment();
+        ConfigurableEnvironment environment = SpringApplication.run(YunMusicServerApplication.class, args).getEnvironment();
         log.info(
                 "\n---------------------------------------------\n\t"+
                         "【服务名】:{}\n\t"+
@@ -23,7 +23,7 @@ public class YunMusicApplication {
                 ,environment.getProperty("spring.application.name")
                 ,environment.getProperty("server.port")
                 ,environment.getProperty("logging.level.root")
-                ,LocalDateTime.now()
+                , LocalDateTime.now()
         );
     }
 
