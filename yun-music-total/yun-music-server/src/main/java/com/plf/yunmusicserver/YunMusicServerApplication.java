@@ -4,13 +4,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.time.LocalDateTime;
 
 @Slf4j
 @EnableTransactionManagement
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.plf.*")
+@EnableAsync
 public class YunMusicServerApplication {
 
     public static void main(String[] args) {

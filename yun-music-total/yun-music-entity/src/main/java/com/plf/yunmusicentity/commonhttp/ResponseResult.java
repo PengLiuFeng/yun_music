@@ -4,7 +4,7 @@ import com.plf.yunmusicentity.enums.ResponseStatusEnum;
 
 import java.io.Serializable;
 
-public class ResponseBody<T> implements Serializable {
+public class ResponseResult<T> implements Serializable {
 
      private T date ;
 
@@ -16,64 +16,64 @@ public class ResponseBody<T> implements Serializable {
 
      private boolean isFail;
      
-     public static ResponseBody getResponseBody(){
-          return new ResponseBody();
+     public static <T> ResponseResult<T> getResponseBody(){
+          return new ResponseResult();
      }
 
-     public ResponseBody setBaseInfo(String code , String message){
+     public ResponseResult setBaseInfo(String code , String message){
           this.code = code;
           this.message = message;
           return this;
      }
 
-     public ResponseBody setBaseInfo(T date , String code , String message){
+     public ResponseResult setBaseInfo(T date , String code , String message){
           this.date = date;
           this.code = code;
           this.message = message;
           return this;
      }
 
-     public ResponseBody(String code , String message){
+     public ResponseResult(String code , String message){
           this.code = code;
           this.message = message;
      }
 
-     public ResponseBody(){
+     public ResponseResult(){
           this.code = ResponseStatusEnum.ERROR.getCode();
           this.message = ResponseStatusEnum.ERROR.getMessage();
      }
 
-     public ResponseBody(ResponseStatusEnum responseStatusEnum){
+     public ResponseResult(ResponseStatusEnum responseStatusEnum){
           this.code = responseStatusEnum.getCode();
           this.message = responseStatusEnum.getMessage();
      }
 
-     public ResponseBody(T date , String code , String message){
+     public ResponseResult(T date , String code , String message){
           this.date = date;
           this.code = code;
           this.message = message;
      }
 
-     public ResponseBody(T date , ResponseStatusEnum responseStatusEnum){
+     public ResponseResult(T date , ResponseStatusEnum responseStatusEnum){
           this.date = date;
           this.code = responseStatusEnum.getCode();
           this.message = responseStatusEnum.getMessage();
      }
 
 
-     public static <T> ResponseBody<T> success(){
-         return new ResponseBody(ResponseStatusEnum.SUCCESS);
+     public static <T> ResponseResult<T> success(){
+         return new ResponseResult(ResponseStatusEnum.SUCCESS);
      }
 
-     public static <T> ResponseBody<T> success(T date){
-          return new ResponseBody(date , ResponseStatusEnum.SUCCESS);
+     public static <T> ResponseResult<T> success(T date){
+          return new ResponseResult(date , ResponseStatusEnum.SUCCESS);
      }
 
-     public static <T> ResponseBody<T> error(String code , String message){
+     public static ResponseResult error(String code , String message){
           return getResponseBody().setBaseInfo(code,message);
      }
 
-     public static <T> ResponseBody<T> error(T date ,String code , String message){
+     public static <T> ResponseResult<T> error(T date , String code , String message){
           return getResponseBody().setBaseInfo(date ,code,message);
      }
 }
