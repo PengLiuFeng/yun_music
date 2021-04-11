@@ -1,6 +1,7 @@
 package com.plf.yunmusicserver;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @EnableTransactionManagement
 @SpringBootApplication(scanBasePackages = "com.plf.*")
 @EnableAsync
+@MapperScan("com.plf.yunmusicserver.dao")
 public class YunMusicServerApplication {
 
     public static void main(String[] args) {

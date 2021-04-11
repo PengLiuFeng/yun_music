@@ -2,6 +2,7 @@ package com.plf.yunmusicserver.dao;
 
 import com.plf.yunmusicserver.entity.Power;
 
+
 public interface PowerMapper {
     int deleteByPrimaryKey(String powerId);
 

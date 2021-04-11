@@ -174,4 +174,11 @@
       user_version = #{userVersion,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
+
+  <select id="selectByUserLoginIn" resultMap="BaseResultMap" parameterType="com.plf.yunmusicserver.entity.User">
+     select <include refid="Base_Column_List" />
+     from user
+     where user_password = #{userPassword}
+       and (user_code = #{userCode} or user_iphone_number = #{userIphoneNumber} or user_email = #{userEmail} )
+  </select>
 </mapper>

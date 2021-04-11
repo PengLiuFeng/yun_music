@@ -2,6 +2,7 @@ package com.plf.yunmusicserver.dao;
 
 import com.plf.yunmusicserver.entity.User;
 
+
 public interface UserMapper {
     int deleteByPrimaryKey(String userId);
 
@@ -14,4 +15,11 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    /**
+     * 登录查询
+     * @param user
+     * @return
+     */
+    User selectByUserLoginIn(User user);
 }
