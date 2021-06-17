@@ -34,6 +34,7 @@
     overflow: hidden;
     border: 5px solid $color-white;
     background-color: $color-white;
+
     img {
       width: 100%;
     }
@@ -46,6 +47,7 @@
     font-weight: 500;
     margin-top: -80px;
     padding: 30px 40px 30px 60px;
+
     span {
       color: rgba(0, 0, 0, 0.5);
     }
@@ -67,12 +69,15 @@
     display: flex;
     align-items: center;
     margin: 50px;
+
     > div {
       margin-left: 100px;
     }
+
     > span {
       font-size: 60px;
     }
+
     h3 {
       margin: 10px 0;
     }

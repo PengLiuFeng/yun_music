@@ -1,10 +1,10 @@
 /* eslint-disable*/
 import axios from 'axios'
-import { get, post } from './http'
+import {get, post} from './http'
 
 // =======================> 用户 API
 // 登录
-export const loginIn = (params) => post(`user/login/status`, params)
+export const loginIn = (params) => get(`/api/userLogin/loginIn`, params)
 // 注册
 export const SignUp = (params) => post(`user/add`, params)
 // 更新用户信息

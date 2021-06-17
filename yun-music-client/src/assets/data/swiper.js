@@ -1,6 +1,6 @@
 // 轮播图
 const swiperList = [{
-  picImg: require('@/assets/img/swiper/blur-1851426_640.jpg')
+  picImg: ('@/assets/img/swiper/blur-1851426_640.jpg')
 }, {
   picImg: require('@/assets/img/swiper/concert-768722_640.jpg')
 }, {

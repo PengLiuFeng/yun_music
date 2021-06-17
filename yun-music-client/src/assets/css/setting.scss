@@ -27,6 +27,7 @@
 
 .setting-aside {
   width: 100%;
+
   li {
     display: block;
     height: 40px;
@@ -42,6 +43,7 @@
       background-color: $color-blue-active;
       color: $color-white;
     }
+
     &:active {
       background-color: $color-blue-shallow;
     }

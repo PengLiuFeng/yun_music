@@ -1,6 +1,6 @@
 const configure = {
   state: {
-    HOST: 'http://localhost:8888',
+    HOST: 'http://localhost:10091',
     loginIn: false, // 用户是否登录
     searchword: '', // 搜索关键词
     showAside: false, // 是否显示侧边栏
@@ -63,8 +63,12 @@ const configure = {
       state.showAside = showAside
       window.sessionStorage.setItem('showAside', JSON.stringify(showAside))
     },
-    setIndex: (state, index) => { state.index = index },
-    setSearchword: (state, searchword) => { state.searchword = searchword }
+    setIndex: (state, index) => {
+      state.index = index
+    },
+    setSearchword: (state, searchword) => {
+      state.searchword = searchword
+    }
   },
   actions: {}
 }

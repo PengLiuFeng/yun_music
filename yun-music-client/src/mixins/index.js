@@ -1,5 +1,5 @@
-import { getSongOfSingerName, getCollectionOfUser } from '../api/index'
-import { mapGetters } from 'vuex'
+import {getSongOfSingerName, getCollectionOfUser} from '../api/index'
+import {mapGetters} from 'vuex'
 
 const mixin = {
   computed: {

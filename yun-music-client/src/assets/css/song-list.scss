@@ -12,6 +12,7 @@
 .song-list-header {
   width: 100%;
   padding: 0 40px;
+
   li {
     display: inline-block;
     line-height: 40px;
@@ -22,6 +23,7 @@
     border-bottom: none;
     cursor: pointer;
   }
+
   li.active {
     color: $color-black;
     font-weight: 600;

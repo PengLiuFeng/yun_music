@@ -16,7 +16,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @author pengliufeng
  * @since 2021/04/09
  * <p>
- *  swagger配置
+ * swagger配置
  * </p>
  */
 
@@ -26,7 +26,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerBaseConfig {
 
     @Bean
-    public Docket generatorDocket(){
+    public Docket generatorDocket() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(getApiInfo())
                 .select()
@@ -35,7 +35,7 @@ public class SwaggerBaseConfig {
                 .build();
     }
 
-    public ApiInfo getApiInfo(){
+    public ApiInfo getApiInfo() {
         return new ApiInfoBuilder()
                 .title("云音乐系统构建API")
                 .description("rest api")

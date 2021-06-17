@@ -19,6 +19,7 @@
 
   .login-btn {
     @include layout(space-between);
+
     button {
       display: block;
       width: 50%;

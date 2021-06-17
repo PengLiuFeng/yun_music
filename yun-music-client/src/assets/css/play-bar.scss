@@ -30,9 +30,11 @@
       line-height: 60px;
       text-align: center;
       cursor: pointer;
+
       .icon.active {
         color: red !important;
       }
+
       .volume {
         position: absolute;
         display: none;
@@ -40,6 +42,7 @@
         top: -($play-bar-height + 50px);
         right: 22px;
       }
+
       .show-volume {
         display: block;
       }
@@ -48,6 +51,7 @@
     .item-img {
       width: $play-bar-height;
       height: $play-bar-height;
+
       img {
         width: 100%;
       }
@@ -71,22 +75,27 @@
 
       .progress-box {
         flex: 1;
+
         .item-song-title {
           @include layout(space-between);
           height: 20px;
           line-height: 10px;
         }
+
         .progress {
           width: 100%;
           background: $color-blue-shallow;
           height: 6px;
+
           .bg {
             height: 100%;
+
             .cur-progress {
               height: 100%;
               background: $color-blue-active;
             }
           }
+
           .idot {
             width: 16px;
             height: 16px;

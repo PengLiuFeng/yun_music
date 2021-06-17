@@ -2,12 +2,14 @@
 
 .home {
   margin-top: $header-height - 10px;
+
   .section {
     width: 100%;
     margin-top: 20px;
     padding: $content-padding;
     background-color: $color-white;
     box-sizing: border-box;
+
     .section-title {
       height: 60px;
       line-height: 60px;

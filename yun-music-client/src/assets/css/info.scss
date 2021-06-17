@@ -3,6 +3,7 @@
 
 .info {
   padding-bottom: 30px;
+
   .title {
     height: 50px;
     line-height: 50px;
@@ -27,6 +28,7 @@
     margin-left: 40px;
     @include layout(center, center);
     cursor: pointer;
+
     div {
       display: inline-block;
       width: 100px;

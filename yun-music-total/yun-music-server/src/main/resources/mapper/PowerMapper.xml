@@ -1,133 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.plf.yunmusicserver.dao.PowerMapper">
-  <resultMap id="BaseResultMap" type="com.plf.yunmusicserver.entity.Power">
-    <id column="power_id" jdbcType="VARCHAR" property="powerId" />
-    <result column="power_code" jdbcType="VARCHAR" property="powerCode" />
-    <result column="power_name" jdbcType="VARCHAR" property="powerName" />
-    <result column="power_create_date" jdbcType="TIMESTAMP" property="powerCreateDate" />
-    <result column="power_create_user" jdbcType="VARCHAR" property="powerCreateUser" />
-    <result column="power_version" jdbcType="INTEGER" property="powerVersion" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.plf.yunmusicserver.entity.Power">
-    <result column="power_describe" jdbcType="LONGVARCHAR" property="powerDescribe" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    power_id, power_code, power_name, power_create_date, power_create_user, power_version
-  </sql>
-  <sql id="Blob_Column_List">
-    power_describe
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from power
-    where power_id = #{powerId,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from power
-    where power_id = #{powerId,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="com.plf.yunmusicserver.entity.Power">
-    insert into power (power_id, power_code, power_name, 
-      power_create_date, power_create_user, power_version, 
-      power_describe)
-    values (#{powerId,jdbcType=VARCHAR}, #{powerCode,jdbcType=VARCHAR}, #{powerName,jdbcType=VARCHAR}, 
-      #{powerCreateDate,jdbcType=TIMESTAMP}, #{powerCreateUser,jdbcType=VARCHAR}, #{powerVersion,jdbcType=INTEGER}, 
-      #{powerDescribe,jdbcType=LONGVARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.plf.yunmusicserver.entity.Power">
-    insert into power
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="powerId != null">
-        power_id,
-      </if>
-      <if test="powerCode != null">
-        power_code,
-      </if>
-      <if test="powerName != null">
-        power_name,
-      </if>
-      <if test="powerCreateDate != null">
-        power_create_date,
-      </if>
-      <if test="powerCreateUser != null">
-        power_create_user,
-      </if>
-      <if test="powerVersion != null">
-        power_version,
-      </if>
-      <if test="powerDescribe != null">
-        power_describe,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="powerId != null">
-        #{powerId,jdbcType=VARCHAR},
-      </if>
-      <if test="powerCode != null">
-        #{powerCode,jdbcType=VARCHAR},
-      </if>
-      <if test="powerName != null">
-        #{powerName,jdbcType=VARCHAR},
-      </if>
-      <if test="powerCreateDate != null">
-        #{powerCreateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="powerCreateUser != null">
-        #{powerCreateUser,jdbcType=VARCHAR},
-      </if>
-      <if test="powerVersion != null">
-        #{powerVersion,jdbcType=INTEGER},
-      </if>
-      <if test="powerDescribe != null">
-        #{powerDescribe,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.plf.yunmusicserver.entity.Power">
-    update power
-    <set>
-      <if test="powerCode != null">
-        power_code = #{powerCode,jdbcType=VARCHAR},
-      </if>
-      <if test="powerName != null">
+    <resultMap id="BaseResultMap" type="com.plf.yunmusicserver.entity.Power">
+        <id column="power_id" jdbcType="VARCHAR" property="powerId"/>
+        <result column="power_code" jdbcType="VARCHAR" property="powerCode"/>
+        <result column="power_name" jdbcType="VARCHAR" property="powerName"/>
+        <result column="power_create_date" jdbcType="TIMESTAMP" property="powerCreateDate"/>
+        <result column="power_create_user" jdbcType="VARCHAR" property="powerCreateUser"/>
+        <result column="power_version" jdbcType="INTEGER" property="powerVersion"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.plf.yunmusicserver.entity.Power">
+        <result column="power_describe" jdbcType="LONGVARCHAR" property="powerDescribe"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        power_id, power_code, power_name, power_create_date, power_create_user, power_version
+    </sql>
+    <sql id="Blob_Column_List">
+        power_describe
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from power
+        where power_id = #{powerId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from power
+        where power_id = #{powerId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.plf.yunmusicserver.entity.Power">
+        insert into power (power_id, power_code, power_name,
+        power_create_date, power_create_user, power_version,
+        power_describe)
+        values (#{powerId,jdbcType=VARCHAR}, #{powerCode,jdbcType=VARCHAR}, #{powerName,jdbcType=VARCHAR},
+        #{powerCreateDate,jdbcType=TIMESTAMP}, #{powerCreateUser,jdbcType=VARCHAR}, #{powerVersion,jdbcType=INTEGER},
+        #{powerDescribe,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.plf.yunmusicserver.entity.Power">
+        insert into power
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="powerId != null">
+                power_id,
+            </if>
+            <if test="powerCode != null">
+                power_code,
+            </if>
+            <if test="powerName != null">
+                power_name,
+            </if>
+            <if test="powerCreateDate != null">
+                power_create_date,
+            </if>
+            <if test="powerCreateUser != null">
+                power_create_user,
+            </if>
+            <if test="powerVersion != null">
+                power_version,
+            </if>
+            <if test="powerDescribe != null">
+                power_describe,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="powerId != null">
+                #{powerId,jdbcType=VARCHAR},
+            </if>
+            <if test="powerCode != null">
+                #{powerCode,jdbcType=VARCHAR},
+            </if>
+            <if test="powerName != null">
+                #{powerName,jdbcType=VARCHAR},
+            </if>
+            <if test="powerCreateDate != null">
+                #{powerCreateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="powerCreateUser != null">
+                #{powerCreateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="powerVersion != null">
+                #{powerVersion,jdbcType=INTEGER},
+            </if>
+            <if test="powerDescribe != null">
+                #{powerDescribe,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.plf.yunmusicserver.entity.Power">
+        update power
+        <set>
+            <if test="powerCode != null">
+                power_code = #{powerCode,jdbcType=VARCHAR},
+            </if>
+            <if test="powerName != null">
+                power_name = #{powerName,jdbcType=VARCHAR},
+            </if>
+            <if test="powerCreateDate != null">
+                power_create_date = #{powerCreateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="powerCreateUser != null">
+                power_create_user = #{powerCreateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="powerVersion != null">
+                power_version = #{powerVersion,jdbcType=INTEGER},
+            </if>
+            <if test="powerDescribe != null">
+                power_describe = #{powerDescribe,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where power_id = #{powerId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.plf.yunmusicserver.entity.Power">
+        update power
+        set power_code = #{powerCode,jdbcType=VARCHAR},
         power_name = #{powerName,jdbcType=VARCHAR},
-      </if>
-      <if test="powerCreateDate != null">
         power_create_date = #{powerCreateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="powerCreateUser != null">
         power_create_user = #{powerCreateUser,jdbcType=VARCHAR},
-      </if>
-      <if test="powerVersion != null">
         power_version = #{powerVersion,jdbcType=INTEGER},
-      </if>
-      <if test="powerDescribe != null">
-        power_describe = #{powerDescribe,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where power_id = #{powerId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.plf.yunmusicserver.entity.Power">
-    update power
-    set power_code = #{powerCode,jdbcType=VARCHAR},
-      power_name = #{powerName,jdbcType=VARCHAR},
-      power_create_date = #{powerCreateDate,jdbcType=TIMESTAMP},
-      power_create_user = #{powerCreateUser,jdbcType=VARCHAR},
-      power_version = #{powerVersion,jdbcType=INTEGER},
-      power_describe = #{powerDescribe,jdbcType=LONGVARCHAR}
-    where power_id = #{powerId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.plf.yunmusicserver.entity.Power">
-    update power
-    set power_code = #{powerCode,jdbcType=VARCHAR},
-      power_name = #{powerName,jdbcType=VARCHAR},
-      power_create_date = #{powerCreateDate,jdbcType=TIMESTAMP},
-      power_create_user = #{powerCreateUser,jdbcType=VARCHAR},
-      power_version = #{powerVersion,jdbcType=INTEGER}
-    where power_id = #{powerId,jdbcType=VARCHAR}
-  </update>
+        power_describe = #{powerDescribe,jdbcType=LONGVARCHAR}
+        where power_id = #{powerId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.plf.yunmusicserver.entity.Power">
+        update power
+        set power_code = #{powerCode,jdbcType=VARCHAR},
+        power_name = #{powerName,jdbcType=VARCHAR},
+        power_create_date = #{powerCreateDate,jdbcType=TIMESTAMP},
+        power_create_user = #{powerCreateUser,jdbcType=VARCHAR},
+        power_version = #{powerVersion,jdbcType=INTEGER}
+        where power_id = #{powerId,jdbcType=VARCHAR}
+    </update>
 </mapper>

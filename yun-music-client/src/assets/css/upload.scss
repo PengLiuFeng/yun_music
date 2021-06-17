@@ -3,6 +3,7 @@
 
 .upload {
   width: 100%;
+
   .title {
     height: 50px;
     line-height: 50px;
@@ -11,9 +12,11 @@
     font-weight: 600;
     color: $color-black;
   }
+
   hr {
     width: 98%;
   }
+
   .section {
     height: 400px;
     @include layout(center, center);

@@ -7,7 +7,7 @@
     </div>
     <el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" class="demo-ruleForm" >
       <el-form-item prop="username">
-        <el-input placeholder="用户名" v-model="loginForm.username"></el-input>
+        <el-input placeholder="用户名/email/iphoneNumber" v-model="loginForm.username"></el-input>
       </el-form-item>
       <el-form-item prop="password">
         <el-input type="password" placeholder="密码" v-model="loginForm.password" @keyup.enter.native="loginIn"></el-input>
@@ -24,6 +24,7 @@
 <script>
 import LoginLogo from '../components/LoginLogo'
 import { loginIn } from '../api/index'
+import axios from 'axios'
 
 export default {
   name: 'login-in',
@@ -68,21 +69,24 @@ export default {
       this.$store.commit('setActiveName', value)
     },
     handleleLoginIn () {
+      console.info("-----------开始------------")
       let _this = this
       let params = new URLSearchParams()
-      params.append('username', this.loginForm.username)
+      params.append('recode', this.loginForm.username)
       params.append('password', this.loginForm.password)
-      loginIn(params)
+      
+       loginIn(params)
         .then(res => {
-          // console.log('-----------获取登录信息---------------')
-          if (res.code === 1) {
+          console.log('-----------获取登录信息---------------')
+          if (res.code == 0) {
             _this.$message({
               message: '登录成功',
               type: 'success'
             })
-            _this.setUserMsg(res.userMsg[0])
+            _this.setUserMsg(res.data)
             _this.$store.commit('setLoginIn', true)
             setTimeout(function () {
+              console.log("-----------开始页面跳转-----------")
               _this.changeIndex('首页')
               _this.$router.push({path: '/'})
               _this.$router.go(0)
@@ -94,9 +98,10 @@ export default {
         .catch(failResponse => {})
     },
     setUserMsg (item) {
-      this.$store.commit('setUserId', item.id)
-      this.$store.commit('setUsername', item.username)
-      this.$store.commit('setAvator', item.avator)
+      console.log("用户参数："+item);
+      this.$store.commit('setUserId', item.userId)
+      this.$store.commit('setUsername', item.userCode)
+      this.$store.commit('setAvator', item.userNickName)
     },
     goSignUp () {
       this.$router.push({path: '/sign-up'})

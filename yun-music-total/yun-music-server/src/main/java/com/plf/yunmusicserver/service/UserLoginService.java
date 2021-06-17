@@ -7,7 +7,7 @@ import com.plf.yunmusicserver.entity.User;
  * @author pengliufeng
  * @since 2021/04/09
  * <p>
- *     用户登录接口
+ * 用户登录接口
  * </p>
  */
 public interface UserLoginService {
@@ -15,5 +15,5 @@ public interface UserLoginService {
     /**
      * 登录接口
      */
-    ResponseResult<User> loginIn(String recode , String password);
+    ResponseResult<User> loginIn(String recode, String password);
 }

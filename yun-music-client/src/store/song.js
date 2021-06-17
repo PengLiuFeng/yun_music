@@ -78,7 +78,7 @@ const song = {
     picUrl: state => {
       let picUrl = state.picUrl
       if (!picUrl) {
-        picUrl = JSON.parse(window.sessionStorage.getItem('picUrl')) || 'http://localhost:8888/img/tubiao.jpg'
+        picUrl = JSON.parse(window.sessionStorage.getItem('picUrl')) || 'http://localhost:10091/file/tubiao.jpg'
       }
       return picUrl
     },

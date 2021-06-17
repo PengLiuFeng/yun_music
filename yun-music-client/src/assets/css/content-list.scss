@@ -4,6 +4,7 @@
 .content-list {
   min-height: 500px;
   padding: 0 20px;
+
   .section-content {
     @include layout(flex-start, stretch, row, wrap);
   }
@@ -16,12 +17,15 @@
   border-radius: 4px;
   @include box-shadow(0 0 5px 1px rgba(0, 0, 0, 0.1));
   position: relative;
+
   &:hover {
     @include box-shadow(0 0 5px 2px rgba(0, 0, 0, 0.3));
   }
+
   &:hover .item-img {
     transform: scale(1.1);
   }
+
   .item-name {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -52,10 +56,12 @@
   transition: all 0.3s ease-in-out;
   opacity: 0;
   @include layout(center);
+
   > .icon {
     position: absolute;
     top: 40%;
   }
+
   &:hover {
     opacity: 1;
     cursor: pointer;
