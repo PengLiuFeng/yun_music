@@ -3,7 +3,7 @@ const configure = {
     HOST: 'http://localhost:10091',
     loginIn: false, // 用户是否登录
     searchword: '', // 搜索关键词
-    showAside: false, // 是否显示侧边栏
+    showAside: true, // 是否显示侧边栏
     activeName: '', // 歌单类型名
     index: 0, // 列表中的序号
     isActive: false

@@ -42,11 +42,28 @@
 
 
         <!--  想要逆向生成的表在这里进行配置   -->
-        <table tableName="user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false"
+<!--        <table tableName="user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false"-->
+<!--                                                                                   enableDeleteByExample="false" enableSelectByExample="false"/>-->
+<!--        <table tableName="role" domainObjectName="Role" enableCountByExample="false" enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"/>-->
+<!--        <table tableName="power" domainObjectName="Power" enableCountByExample="false" enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"/>-->
+
+        <table tableName="song" domainObjectName="Song" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"/>
-        <table tableName="role" domainObjectName="Role" enableCountByExample="false" enableUpdateByExample="false"
+        <table tableName="singer" domainObjectName="Singer" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"/>
-        <table tableName="power" domainObjectName="Power" enableCountByExample="false" enableUpdateByExample="false"
+        <table tableName="song_list" domainObjectName="SongList" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"/>
+        <table tableName="music_config" domainObjectName="MusicConfig" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"/>
+        <table tableName="list_song" domainObjectName="ListSong" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"/>
+        <table tableName="consumer" domainObjectName="Consumer" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"/>
+        <table tableName="comment" domainObjectName="Comment" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"/>
+        <table tableName="collect" domainObjectName="Collect" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"/>
 
 

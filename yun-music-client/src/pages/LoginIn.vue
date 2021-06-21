@@ -98,7 +98,6 @@ export default {
         .catch(failResponse => {})
     },
     setUserMsg (item) {
-      console.log("用户参数："+item);
       this.$store.commit('setUserId', item.userId)
       this.$store.commit('setUsername', item.userCode)
       this.$store.commit('setAvator', item.userNickName)

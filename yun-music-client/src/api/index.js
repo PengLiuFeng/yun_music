@@ -15,7 +15,7 @@ export const getUserOfId = (id) => get(`user/detail?id=${id}`)
 
 // =======================> 歌单 API
 // 获取全部歌单
-export const getSongList = () => get('songList')
+export const getSongList = () => get('api/song/songListQuery')
 // 获取歌单类型
 export const getSongListOfStyle = (style) => get(`songList/style/detail?style=${style}`)
 // 返回标题包含文字的歌单
@@ -26,7 +26,7 @@ export const getListSongOfSongId = (songListId) => get(`listSong/detail?songList
 
 // =======================> 歌手 API
 // 返回所有歌手
-export const getAllSinger = () => get('singer')
+export const getAllSinger = () => get('api/singer/singerListQuery')
 // 通过性别对歌手分类
 export const getSingerOfSex = (sex) => get(`singer/sex/detail?sex=${sex}`)
 

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RequestMapping(value = "api/userLogin")
 @Api(value = "用户登录，注册控制器", tags = "用于用户登录，注册接口控制")
-@CrossOrigin(value = "http://localhost:8080", maxAge = 1800, allowedHeaders ="*")
 public class UserLoginController {
 
 
