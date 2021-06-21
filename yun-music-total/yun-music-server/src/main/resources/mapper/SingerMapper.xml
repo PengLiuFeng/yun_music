@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plf.yunmusicserver.dao.SingerMapper">
+  <resultMap id="BaseResultMap" type="com.plf.yunmusicserver.entity.Singer">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="TINYINT" property="sex" />
+    <result column="pic" jdbcType="VARCHAR" property="pic" />
+    <result column="birth" jdbcType="TIMESTAMP" property="birth" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+    <result column="version" jdbcType="TIMESTAMP" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, sex, pic, birth, location, introduction, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from singer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from singer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.plf.yunmusicserver.entity.Singer">
+    insert into singer (id, name, sex, 
+      pic, birth, location, 
+      introduction, version)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=TINYINT}, 
+      #{pic,jdbcType=VARCHAR}, #{birth,jdbcType=TIMESTAMP}, #{location,jdbcType=VARCHAR}, 
+      #{introduction,jdbcType=VARCHAR}, #{version,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.plf.yunmusicserver.entity.Singer">
+    insert into singer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="pic != null">
+        pic,
+      </if>
+      <if test="birth != null">
+        birth,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="introduction != null">
+        introduction,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="pic != null">
+        #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="birth != null">
+        #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null">
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.plf.yunmusicserver.entity.Singer">
+    update singer
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="pic != null">
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="birth != null">
+        birth = #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null">
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.plf.yunmusicserver.entity.Singer">
+    update singer
+    set name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=TINYINT},
+      pic = #{pic,jdbcType=VARCHAR},
+      birth = #{birth,jdbcType=TIMESTAMP},
+      location = #{location,jdbcType=VARCHAR},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      version = #{version,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="queryAllData" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List"/> from singer
+  </select>
+</mapper>

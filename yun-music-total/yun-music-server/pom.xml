@@ -90,6 +90,13 @@
             <version>1.9.3</version>
         </dependency>
 
+        <!--jwt-->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+
         <!-- aop -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

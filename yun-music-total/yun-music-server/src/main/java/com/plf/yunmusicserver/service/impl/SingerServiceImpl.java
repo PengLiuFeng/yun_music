@@ -25,6 +25,7 @@ public class SingerServiceImpl implements SingerService {
             log.debug("歌手信息查询为空");
             singerList = Collections.EMPTY_LIST;
         }
+
         return ResponseResult.success(singerList);
     }
 }

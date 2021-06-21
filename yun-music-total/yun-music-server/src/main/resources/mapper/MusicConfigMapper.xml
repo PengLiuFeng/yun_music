@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plf.yunmusicserver.dao.MusicConfigMapper">
+  <resultMap id="BaseResultMap" type="com.plf.yunmusicserver.entity.MusicConfig">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="type_enum" jdbcType="INTEGER" property="typeEnum" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="version" jdbcType="TIMESTAMP" property="version" />
+    <result column="cofing_name" jdbcType="VARCHAR" property="cofingName" />
+    <result column="config_enum" jdbcType="INTEGER" property="configEnum" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.plf.yunmusicserver.entity.MusicConfig">
+    <result column="describe" jdbcType="LONGVARCHAR" property="describe" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, type_enum, type, version, cofing_name, config_enum
+  </sql>
+  <sql id="Blob_Column_List">
+    describe
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from music_config
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from music_config
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.plf.yunmusicserver.entity.MusicConfig">
+    insert into music_config (id, type_enum, type, 
+      version, cofing_name, config_enum, 
+      describe)
+    values (#{id,jdbcType=VARCHAR}, #{typeEnum,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, 
+      #{version,jdbcType=TIMESTAMP}, #{cofingName,jdbcType=VARCHAR}, #{configEnum,jdbcType=INTEGER}, 
+      #{describe,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.plf.yunmusicserver.entity.MusicConfig">
+    insert into music_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="typeEnum != null">
+        type_enum,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="cofingName != null">
+        cofing_name,
+      </if>
+      <if test="configEnum != null">
+        config_enum,
+      </if>
+      <if test="describe != null">
+        describe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="typeEnum != null">
+        #{typeEnum,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cofingName != null">
+        #{cofingName,jdbcType=VARCHAR},
+      </if>
+      <if test="configEnum != null">
+        #{configEnum,jdbcType=INTEGER},
+      </if>
+      <if test="describe != null">
+        #{describe,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.plf.yunmusicserver.entity.MusicConfig">
+    update music_config
+    <set>
+      <if test="typeEnum != null">
+        type_enum = #{typeEnum,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cofingName != null">
+        cofing_name = #{cofingName,jdbcType=VARCHAR},
+      </if>
+      <if test="configEnum != null">
+        config_enum = #{configEnum,jdbcType=INTEGER},
+      </if>
+      <if test="describe != null">
+        describe = #{describe,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.plf.yunmusicserver.entity.MusicConfig">
+    update music_config
+    set type_enum = #{typeEnum,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      version = #{version,jdbcType=TIMESTAMP},
+      cofing_name = #{cofingName,jdbcType=VARCHAR},
+      config_enum = #{configEnum,jdbcType=INTEGER},
+      describe = #{describe,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.plf.yunmusicserver.entity.MusicConfig">
+    update music_config
+    set type_enum = #{typeEnum,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      version = #{version,jdbcType=TIMESTAMP},
+      cofing_name = #{cofingName,jdbcType=VARCHAR},
+      config_enum = #{configEnum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
