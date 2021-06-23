@@ -1,6 +1,6 @@
 package com.plf.yunmusicserver.common.aop.Log;
 
-import com.plf.yunmusicserver.util.JacksonUtils;
+import com.plf.yunmusiccommon.util.JacksonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;

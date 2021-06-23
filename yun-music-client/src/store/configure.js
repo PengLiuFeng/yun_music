@@ -6,7 +6,8 @@ const configure = {
     showAside: true, // 是否显示侧边栏
     activeName: '', // 歌单类型名
     index: 0, // 列表中的序号
-    isActive: false
+    isActive: false,
+    token: '' //后端返回的令牌信息
   },
   getters: {
     isActive: state => {
@@ -44,7 +45,8 @@ const configure = {
       }
       return index
     },
-    searchword: state => state.searchword
+    searchword: state => state.searchword ,
+    token: state => state.token 
   },
   mutations: {
     setIsActive: (state, isActive) => {
@@ -68,6 +70,10 @@ const configure = {
     },
     setSearchword: (state, searchword) => {
       state.searchword = searchword
+    },
+    setToken: (state , token) => {
+      state.token = token 
+      window.sessionStorage.setItem("token",JSON.stringify(token))
     }
   },
   actions: {}

@@ -1,6 +1,7 @@
 package com.plf.yunmusicserver.contoller;
 
 import com.plf.yunmusicentity.commonhttp.ResponseResult;
+import com.plf.yunmusicserver.annotation.LoginRequired;
 import com.plf.yunmusicserver.entity.Singer;
 import com.plf.yunmusicserver.service.SingerService;
 import io.swagger.annotations.Api;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/singer")
 @Api(value = "歌手控制器", tags = "歌手信息控制器")
+@LoginRequired
 //TODO 后去全部改成分页的
 public class SingerController {
     @Autowired

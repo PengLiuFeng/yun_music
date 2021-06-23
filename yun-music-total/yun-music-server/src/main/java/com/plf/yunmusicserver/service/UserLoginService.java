@@ -1,7 +1,7 @@
 package com.plf.yunmusicserver.service;
 
 import com.plf.yunmusicentity.commonhttp.ResponseResult;
-import com.plf.yunmusicserver.entity.User;
+import com.plf.yunmusicentity.dto.user.UserDTO;
 
 /**
  * @author pengliufeng
@@ -15,5 +15,5 @@ public interface UserLoginService {
     /**
      * 登录接口
      */
-    ResponseResult<User> loginIn(String recode, String password);
+    ResponseResult<UserDTO> loginIn(String recode, String password);
 }

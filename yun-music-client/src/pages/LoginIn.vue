@@ -101,6 +101,7 @@ export default {
       this.$store.commit('setUserId', item.userId)
       this.$store.commit('setUsername', item.userCode)
       this.$store.commit('setAvator', item.userNickName)
+      this.$store.commit("setToken",item.token)
     },
     goSignUp () {
       this.$router.push({path: '/sign-up'})

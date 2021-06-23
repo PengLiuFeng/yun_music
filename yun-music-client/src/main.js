@@ -14,6 +14,8 @@ import '@/assets/js/iconfont.js'
 import '@/assets/js/iconfont1.js'
 import '@/assets/js/iconfont2.js'
 import '@/assets/js/iconfont3.js'
+import axios from 'axios'
+
 
 Vue.use(Router)
 Vue.use(Vuex)
@@ -30,3 +32,15 @@ new Vue({
   components: {App},
   template: '<App/>'
 })
+
+axios.interceptors.request.use(
+  config => {
+    if(sessionStorage.getItem("token")){
+      config.headers.Authorization = 'token ${sessionStorage.token}';
+    }
+    return config
+  },
+  err => {
+    return Promise.reject(err);
+  }
+)

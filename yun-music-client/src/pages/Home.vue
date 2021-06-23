@@ -39,9 +39,11 @@ export default {
     getSongList (path) {
       getSongList()
         .then(res => {
+          console.log("facad")
           this.songsList[0].list = res.slice(0, 10)
         })
         .catch(err => {
+          console.log("facad")
           console.log(err)
         })
     },

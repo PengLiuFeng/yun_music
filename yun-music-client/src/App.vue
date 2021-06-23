@@ -17,6 +17,7 @@ import TheHeader from './components/TheHeader'
 import TheFooter from './components/TheFooter'
 import PlayBar from './components/PlayBar'
 import TheAside from './components/TheAside'
+//import Loginin from './pages/LoginIn'
 
 export default {
   name: 'App',
@@ -27,6 +28,7 @@ export default {
     TheFooter,
     TheAside,
     PlayBar
+    // Loginin
   }
 }
 </script>
