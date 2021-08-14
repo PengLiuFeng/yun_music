@@ -6,6 +6,7 @@ import com.plf.yunmusiccommon.util.JavaObjectExchangeUtils;
 import com.plf.yunmusicentity.commonhttp.ResponseResult;
 import com.plf.yunmusicentity.dto.user.UserDTO;
 import com.plf.yunmusicentity.enums.ResponseStatusEnum;
+import com.plf.yunmusicserver.common.mq.send.SendUserToken;
 import com.plf.yunmusicserver.dao.UserMapper;
 import com.plf.yunmusicserver.entity.User;
 import com.plf.yunmusicserver.exception.TokenException;
@@ -14,23 +15,29 @@ import com.plf.yunmusicserver.service.UserLoginService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @Slf4j
 public class UserLoginServiceImpl implements UserLoginService {
 
 
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
-    @Autowired
-    private RedisTemplate redisTemplate;
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private SendUserToken sendUserToken;
 
 
     @Override
@@ -51,12 +58,14 @@ public class UserLoginServiceImpl implements UserLoginService {
             UserDTO userDTO = JavaObjectExchangeUtils.objectExchange(user,UserDTO.class);
             try{
                 userDTO.setToken(tokenService.getToken(user));
+                redisTemplate.opsForValue().set(userDTO.getToken(),userDTO,1000, TimeUnit.SECONDS);
+                sendUserToken.doSend(JacksonUtils.javaBeanToString(userDTO));
                 return ResponseResult.success(userDTO);
             }catch (TokenException e){
                 log.error("用户{}获取token报错：{}",user.getUserNickName() , JacksonUtils.javaBeanToString(e));
-                return ResponseResult.error("-5","当前无法登录，请稍后再试！");
+                return ResponseResult.error(ResponseStatusEnum.ERROR002.getCode(),ResponseStatusEnum.ERROR002.getMessage());
             }
         }
-        return ResponseResult.error("-1001", "账号或者密码错误，请确认后重试");
+        return ResponseResult.error(ResponseStatusEnum.ERROR001.getCode(),ResponseStatusEnum.ERROR001.getMessage());
     }
 }
