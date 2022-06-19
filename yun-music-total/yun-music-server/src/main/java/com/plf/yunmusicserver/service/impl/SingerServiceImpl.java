@@ -5,8 +5,10 @@ import com.plf.yunmusicserver.dao.SingerMapper;
 import com.plf.yunmusicserver.entity.Singer;
 import com.plf.yunmusicserver.service.SingerService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.util.Collections;
@@ -25,7 +27,6 @@ public class SingerServiceImpl implements SingerService {
             log.debug("歌手信息查询为空");
             singerList = Collections.EMPTY_LIST;
         }
-
         return ResponseResult.success(singerList);
     }
 }

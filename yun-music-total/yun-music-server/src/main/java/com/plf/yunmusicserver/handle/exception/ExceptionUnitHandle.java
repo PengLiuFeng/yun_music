@@ -2,15 +2,18 @@ package com.plf.yunmusicserver.handle.exception;
 
 import com.plf.yunmusicentity.commonhttp.ErrorInfo;
 import com.plf.yunmusicentity.enums.ResponseStatusEnum;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
-//@ControllerAdvice
+@ControllerAdvice
 public class ExceptionUnitHandle {
 
-   // @ExceptionHandler(value = Exception.class)
-    //@ResponseBody
+    @ExceptionHandler(value = Exception.class)
+    @ResponseBody
     public ErrorInfo<Exception> handleException(HttpServletRequest req , Exception e ){
         ErrorInfo<Exception> result = new ErrorInfo<>();
         result.setCode(ResponseStatusEnum.EXCEPTION.getCode());

@@ -16,6 +16,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             return true;
         }
         //获取heads进行头部的token校验
+        String token = request.getHeader("token");
 
         request.getCookies();
 

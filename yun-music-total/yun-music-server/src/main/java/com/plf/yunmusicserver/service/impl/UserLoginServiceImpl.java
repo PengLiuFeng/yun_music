@@ -7,6 +7,8 @@ import com.plf.yunmusicentity.commonhttp.ResponseResult;
 import com.plf.yunmusicentity.dto.user.UserDTO;
 import com.plf.yunmusicentity.enums.ResponseStatusEnum;
 import com.plf.yunmusicserver.common.mq.send.SendUserToken;
+import com.plf.yunmusicserver.config.threadpool.ForkJoinPoolExtend;
+import com.plf.yunmusicserver.config.threadpool.ThreadPoolExtend;
 import com.plf.yunmusicserver.dao.UserMapper;
 import com.plf.yunmusicserver.entity.User;
 import com.plf.yunmusicserver.exception.TokenException;
@@ -14,13 +16,17 @@ import com.plf.yunmusicserver.service.TokenService;
 import com.plf.yunmusicserver.service.UserLoginService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.LongStream;
 
 @Service
 @Slf4j
@@ -30,8 +36,7 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Resource
     private UserMapper userMapper;
 
-    @Resource
-    private RedisTemplate<String, Object> redisTemplate;
+
 
     @Autowired
     private TokenService tokenService;
@@ -39,6 +44,9 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Autowired
     private SendUserToken sendUserToken;
 
+    @Qualifier("redisTemplate")
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
     public ResponseResult<UserDTO> loginIn(String recode, String password) {
@@ -46,7 +54,6 @@ public class UserLoginServiceImpl implements UserLoginService {
             log.error("【登录】当前用户的登录号和密码均为空！recode = {} ; password = {}", recode, password);
             return ResponseResult.error(ResponseStatusEnum.LOGIN_ERROR.getCode(), ResponseStatusEnum.LOGIN_ERROR.getMessage());
         }
-
         User user = new User();
         user.setUserCode(recode);
         user.setUserIphoneNumber(recode);
@@ -58,8 +65,10 @@ public class UserLoginServiceImpl implements UserLoginService {
             UserDTO userDTO = JavaObjectExchangeUtils.objectExchange(user,UserDTO.class);
             try{
                 userDTO.setToken(tokenService.getToken(user));
-                redisTemplate.opsForValue().set(userDTO.getToken(),userDTO,1000, TimeUnit.SECONDS);
-                sendUserToken.doSend(JacksonUtils.javaBeanToString(userDTO));
+                CompletableFuture.runAsync(() ->{
+                    redisTemplate.opsForValue().set(userDTO.getToken(),userDTO,1000, TimeUnit.SECONDS);
+                    sendUserToken.doSend(JacksonUtils.javaBeanToString(userDTO));
+                });
                 return ResponseResult.success(userDTO);
             }catch (TokenException e){
                 log.error("用户{}获取token报错：{}",user.getUserNickName() , JacksonUtils.javaBeanToString(e));
@@ -68,4 +77,28 @@ public class UserLoginServiceImpl implements UserLoginService {
         }
         return ResponseResult.error(ResponseStatusEnum.ERROR001.getCode(),ResponseStatusEnum.ERROR001.getMessage());
     }
+
+    public static void main(String[] arg){
+        Executor threadPool = ThreadPoolExtend.getThreadPool();
+        int i = 0;
+        while (i < 10000){
+            final int  s = i;
+            CompletableFuture<Integer> doubleCompletableFuture = CompletableFuture.supplyAsync(() -> test(s), new ForkJoinPoolExtend());
+            i++;
+        }
+//        List<long[]> longs = Arrays.asList();
+//        Arrays.stream(LongStream.rangeClosed(1, 10000).toArray()).parallel().forEach(e-> test(e));
+
+    }
+
+    private static int test(int n){
+        //log.info("{}",n);
+        try {
+            Thread.sleep(20000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 }
