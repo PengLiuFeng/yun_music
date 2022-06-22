@@ -15,11 +15,11 @@ import java.util.concurrent.*;
 @Slf4j
 public class ThreadPoolExtend  extends  ThreadPoolExecutor{
 
-    public static final Integer DEFAULT_THREAD_CONCURRENT = Runtime.getRuntime().availableProcessors()*2;
+    public static final Integer DEFAULT_THREAD_CONCURRENT = Runtime.getRuntime().availableProcessors();
 
-    public static final Integer DEFAULT_QUEUE_SIZE = 512;
+    public static final Integer DEFAULT_QUEUE_SIZE = 40;
 
-    public static final Long DEFAULT_WORK_KEEP_LIVE_TIME = 2L;
+    public static final Long DEFAULT_WORK_KEEP_LIVE_TIME = 12L;
 
     public static final  BlockingQueue<Runnable> blockQueue = new LinkedBlockingQueue<>(DEFAULT_QUEUE_SIZE);
 
@@ -52,8 +52,15 @@ public class ThreadPoolExtend  extends  ThreadPoolExecutor{
 
     @Override
     public void execute(Runnable command) {
+        if (blockQueue.size() == DEFAULT_QUEUE_SIZE && getActiveCount() == DEFAULT_THREAD_CONCURRENT*2){
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                log.info("wait ····");
+            }
+        }
         super.execute(command);
-        log.info("queue is {} , liveThread is {}, task count is {}",blockQueue.size(),getActiveCount(),getTaskCount());
+        //log.info("queue is {} , liveThread is {}, task count is {}",blockQueue.size(),getActiveCount(),getTaskCount());
     }
 
     public ThreadPoolExtend(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue) {

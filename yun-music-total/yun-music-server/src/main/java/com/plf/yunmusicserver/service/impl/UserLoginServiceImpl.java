@@ -21,12 +21,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.LongStream;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Service
 @Slf4j
@@ -78,27 +76,163 @@ public class UserLoginServiceImpl implements UserLoginService {
         return ResponseResult.error(ResponseStatusEnum.ERROR001.getCode(),ResponseStatusEnum.ERROR001.getMessage());
     }
 
-    public static void main(String[] arg){
+    public static void main(String[] arg) {
+        //Async();
         Executor threadPool = ThreadPoolExtend.getThreadPool();
+        ForkJoinPoolExtend forkJoinPoolExtend = new ForkJoinPoolExtend(2);
         int i = 0;
-        while (i < 10000){
+        //CompletableFuture<Void> test = CompletableFuture.supplyAsync(() -> async());
+        while (i < 10){
             final int  s = i;
-            CompletableFuture<Integer> doubleCompletableFuture = CompletableFuture.supplyAsync(() -> test(s), new ForkJoinPoolExtend());
+            CompletableFuture.supplyAsync(() -> test(s),forkJoinPoolExtend);
+//            CompletableFuture<Integer> doubleCompletableFuture = CompletableFuture.supplyAsync(() -> test(s)).exceptionally(throwable -> {
+//                log.error("throwable is {}",throwable.toString());
+//                return null;
+//            });
+//            CompletableFuture<Integer> two = CompletableFuture.supplyAsync(() -> test(s)).thenApply(value -> {
+//                log.error(" two throwable is {}",value);
+//                return null;
+//            });
+//
+//            CompletableFuture.allOf(doubleCompletableFuture).join();
+//            try {
+//                log.info("test {},{},{},{}" ,doubleCompletableFuture.get());
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            } catch (ExecutionException e) {
+//                e.printStackTrace();
+//            }
             i++;
+        }
+
+        log.info("····················");
+        long time = TimeUnit.SECONDS.toNanos(5);
+
+//        try {
+//            Thread.sleep(9000);
+//            int j = 10;
+//            while(j > 0){
+//                final int  s = j;
+//                CompletableFuture<Integer> doubleCompletableFuture = CompletableFuture.supplyAsync(() -> test(s),threadPool);
+//                j--;
+//            }
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        ReentrantLock reentrantLock = new ReentrantLock();
+        Condition condition = reentrantLock.newCondition();
+        while(true){
+            if(time <= 0){
+                System.out.println("main is over = " + i);
+                return;
+            }
+            try {
+                reentrantLock.lockInterruptibly();
+                time = condition.awaitNanos(time);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }finally {
+                reentrantLock.unlock();
+            }
         }
 //        List<long[]> longs = Arrays.asList();
 //        Arrays.stream(LongStream.rangeClosed(1, 10000).toArray()).parallel().forEach(e-> test(e));
+//        try {
+//            Thread.sleep(9000);
+//            int j = 10;
+//            while(j > 0){
+//                final int  s = j;
+//                CompletableFuture<Integer> doubleCompletableFuture = CompletableFuture.supplyAsync(() -> test(s),threadPool);
+//                j--;
+//            }
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+    }
 
+    private static <U> U async() {
+        int i = 100000;
+        int size = 0;
+        while (true){
+            size++;
+            CompletableFuture<Integer> doubleCompletableFuture = CompletableFuture.supplyAsync(() -> test(-1));
+            i--;
+            if (i < 0){
+                try {
+                    log.info("----------------------------{}",size);
+                    Thread.sleep(2000);
+                    i = 100000;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
     }
 
     private static int test(int n){
-        //log.info("{}",n);
-        try {
-            Thread.sleep(20000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        try{
+            Thread.sleep(2000);
+        }catch (Exception e){
+            log.info(e.toString());
         }
-        return 0;
+        if (n != -1) log.info(n+"");
+        return n;
+    }
+
+    public static void Async(){
+        CompletableFuture<Integer> studentCompletableFuture = CompletableFuture.supplyAsync(() -> {
+
+            try {
+                Thread t = Thread.currentThread();
+                System.out.printf("Thread_Name: %s, Daemon: %s%n", t.getName(), t.isDaemon());
+                System.out.println("Inside first then main");
+                Thread.sleep(2);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 3;
+        }).thenApply(i -> {
+
+                    for (int j = 0; j <= i; j++) {
+                        System.out.println("Inside first then apply");
+                    }
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("First then apply is finished");
+                    return ++i;
+                })
+                .thenApply(i -> {
+                    System.out.println("Inside 2nd then apply");
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("Inside 2nd then apply stopped");
+
+                    return i++;
+                })
+                .thenApply(i -> {
+                    System.out.println("Inside 3nd then apply");
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("Inside 3nd then apply stopped");
+                    return "The i is ::: " + i;
+                })
+                .thenApply(s -> 1);
+        System.out.println("Executing..");
+        System.out.println("Executing..");
+        System.out.println("Executing..");
+        System.out.println("Executing..");
+        System.out.println("Executing..");
+
     }
 
 }

@@ -16,6 +16,7 @@ import java.util.concurrent.ForkJoinPool;
 public class ForkJoinPoolExtend extends ForkJoinPool {
 
     public ForkJoinPoolExtend() {
+        super();
     }
 
     public ForkJoinPoolExtend(int parallelism) {
