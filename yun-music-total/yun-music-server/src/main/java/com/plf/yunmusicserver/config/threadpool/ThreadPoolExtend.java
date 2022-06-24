@@ -17,7 +17,7 @@ public class ThreadPoolExtend  extends  ThreadPoolExecutor{
 
     public static final Integer DEFAULT_THREAD_CONCURRENT = Runtime.getRuntime().availableProcessors();
 
-    public static final Integer DEFAULT_QUEUE_SIZE = 40;
+    public static final Integer DEFAULT_QUEUE_SIZE = 512;
 
     public static final Long DEFAULT_WORK_KEEP_LIVE_TIME = 12L;
 

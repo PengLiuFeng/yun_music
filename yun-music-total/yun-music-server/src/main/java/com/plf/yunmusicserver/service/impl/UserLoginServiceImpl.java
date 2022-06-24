@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Objects;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -30,11 +31,8 @@ import java.util.concurrent.locks.ReentrantLock;
 @Slf4j
 public class UserLoginServiceImpl implements UserLoginService {
 
-
     @Resource
     private UserMapper userMapper;
-
-
 
     @Autowired
     private TokenService tokenService;
@@ -64,7 +62,7 @@ public class UserLoginServiceImpl implements UserLoginService {
             try{
                 userDTO.setToken(tokenService.getToken(user));
                 CompletableFuture.runAsync(() ->{
-                    redisTemplate.opsForValue().set(userDTO.getToken(),userDTO,1000, TimeUnit.SECONDS);
+                    redisTemplate.opsForValue().set(userDTO.getToken(),userDTO,100, TimeUnit.SECONDS);
                     sendUserToken.doSend(JacksonUtils.javaBeanToString(userDTO));
                 });
                 return ResponseResult.success(userDTO);
@@ -75,16 +73,23 @@ public class UserLoginServiceImpl implements UserLoginService {
         }
         return ResponseResult.error(ResponseStatusEnum.ERROR001.getCode(),ResponseStatusEnum.ERROR001.getMessage());
     }
-
+    static volatile int s = 0;
+    static AtomicInteger integer = new AtomicInteger(0);
     public static void main(String[] arg) {
         //Async();
         Executor threadPool = ThreadPoolExtend.getThreadPool();
-        ForkJoinPoolExtend forkJoinPoolExtend = new ForkJoinPoolExtend(2);
+        Executor forkJoinPool = ForkJoinPoolExtend.getInstance();
         int i = 0;
         //CompletableFuture<Void> test = CompletableFuture.supplyAsync(() -> async());
-        while (i < 10){
+
+        while (i<100){
             final int  s = i;
-            CompletableFuture.supplyAsync(() -> test(s),forkJoinPoolExtend);
+//            try {
+//                Thread.sleep(10);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+            CompletableFuture.supplyAsync(() -> test(s),threadPool);
 //            CompletableFuture<Integer> doubleCompletableFuture = CompletableFuture.supplyAsync(() -> test(s)).exceptionally(throwable -> {
 //                log.error("throwable is {}",throwable.toString());
 //                return null;
@@ -105,8 +110,12 @@ public class UserLoginServiceImpl implements UserLoginService {
             i++;
         }
 
-        log.info("····················");
-        long time = TimeUnit.SECONDS.toNanos(5);
+
+//        log.info("····················");
+//        long time = TimeUnit.SECONDS.toNanos(5);
+//        while (true){
+//
+//        }
 
 //        try {
 //            Thread.sleep(9000);
@@ -119,22 +128,22 @@ public class UserLoginServiceImpl implements UserLoginService {
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-        ReentrantLock reentrantLock = new ReentrantLock();
-        Condition condition = reentrantLock.newCondition();
-        while(true){
-            if(time <= 0){
-                System.out.println("main is over = " + i);
-                return;
-            }
-            try {
-                reentrantLock.lockInterruptibly();
-                time = condition.awaitNanos(time);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }finally {
-                reentrantLock.unlock();
-            }
-        }
+//        ReentrantLock reentrantLock = new ReentrantLock();
+//        Condition condition = reentrantLock.newCondition();
+//        while(true){
+//            if(time <= 0){
+//                System.out.println("main is over = " + i);
+//                return;
+//            }
+//            try {
+//                reentrantLock.lockInterruptibly();
+//                time = condition.awaitNanos(time);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }finally {
+//                reentrantLock.unlock();
+//            }
+//        }
 //        List<long[]> longs = Arrays.asList();
 //        Arrays.stream(LongStream.rangeClosed(1, 10000).toArray()).parallel().forEach(e-> test(e));
 //        try {
@@ -171,12 +180,14 @@ public class UserLoginServiceImpl implements UserLoginService {
     }
 
     private static int test(int n){
+        log.info(" n = {} ", n);
         try{
-            Thread.sleep(2000);
+            Thread.sleep(3000);
         }catch (Exception e){
             log.info(e.toString());
         }
-        if (n != -1) log.info(n+"");
+            s = n;
+            integer.set(n);
         return n;
     }
 
